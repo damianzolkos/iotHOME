@@ -1,0 +1,38 @@
+<!--
+####################################
+        MQTT LOG module
+####################################
+ -->
+
+<!-- module scecific styles -->
+<style rel="stylesheet">
+    .temperature {
+        font-size: 60px;
+        text-align: center;
+    }
+</style>
+
+<!-- module specific scripts -->
+<script type="text/javascript">
+    temperatureReading("cputemp", 57);
+    temperatureReading("gputemp", 78);
+
+    function temperatureReading(id, temp) {
+        document.getElementById(id).innerHTML = temp + "<span class='deg'>&deg;</span>C";
+    }
+</script>
+
+<!--
+############   MODULE BODY   ############
+ -->
+<div class="module_wrapper" id="temps">
+    <p class="module_name blue">Temperatures</p>
+    <div class="module_content">
+        <p class="module_description">CPU</p>
+        <div class="temperature" id="cputemp"></div>
+    </div>
+    <div class="module_content">
+        <p class="module_description">GPU</p>
+        <div class="temperature" id="gputemp"></div>
+    </div>
+</div>

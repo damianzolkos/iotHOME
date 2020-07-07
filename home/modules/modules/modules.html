@@ -1,0 +1,58 @@
+<!--
+####################################
+        MODULES module
+####################################
+ -->
+
+<!-- additional config files -->
+
+<!-- module scecific styles -->
+<style rel="stylesheet">
+  #modules_list {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  #modules_list li {
+    padding: 10px 0px;
+  }
+</style>
+
+<!-- module specific scripts -->
+<script type="text/javascript">
+  for (let i = 0; i < config.activeModules.length; i++) {
+    let listElement = document.createElement("li");
+
+    module_name = config.activeModules[i][0];
+
+    $.getJSON("modules/" + module_name + "/" + module_name + ".json", function (json) {
+      let module = JSON.parse(JSON.stringify(json));
+
+      if (module.visibility == "visible") checked = " checked";
+      else if (module.visibility == "none") checked = " ";
+
+      listElement.innerHTML =
+        config.activeModules[i][0] +
+        "<label class='switch'><input type='checkbox' disabled " + checked +
+        "/><span class='slider round'></span></label>";
+      document.getElementById("modules_list").appendChild(listElement);
+      
+    });
+  }
+</script>
+
+<!--
+############   MODULE BODY   ############
+ -->
+
+<div class="module_wrapper">
+  <p class="module_name">Modules</p>
+  <div class="module_content">
+    <div class="module_group">
+      <p class="module_description">Loaded modules
+        <span style="float:right;">visibility</span>
+      </p>
+      <ul id="modules_list"></ul>
+    </div>
+  </div>
+</div>

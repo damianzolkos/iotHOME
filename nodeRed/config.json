@@ -1,0 +1,1938 @@
+[
+    {
+        "id": "92a0f6fc.b5e148",
+        "type": "tab",
+        "label": "HTTP actions",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "cbe4eff8.67bca",
+        "type": "tab",
+        "label": "Categories",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c884c417.19b658",
+        "type": "tab",
+        "label": "Music",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4305c329.dc5d6c",
+        "type": "tab",
+        "label": "Remotes",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "999025bf.8bdb68",
+        "type": "tab",
+        "label": "Google Home",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4140c906.fd0ef8",
+        "type": "nora-config",
+        "z": "",
+        "name": "nora config",
+        "group": "",
+        "notify": false
+    },
+    {
+        "id": "b56a1133.b25be",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "26c5389a.3e7948",
+        "type": "spotify-auth",
+        "z": "",
+        "name": "Spotify OAuth2",
+        "scope": "user-read-playback-state\nuser-modify-playback-state\nuser-read-currently-playing\napp-remote-control\nstreaming\nplaylist-modify-public\nplaylist-read-private\nplaylist-modify-private\nuser-read-recently-played\nuser-read-playback-position"
+    },
+    {
+        "id": "85d9baa1.d991f8",
+        "type": "spotify-auth",
+        "z": "",
+        "name": "Spotify_ext OAuth2",
+        "scope": "user-read-playback-state\nstreaming\nplaylist-read-collaborative\nuser-modify-playback-state\nuser-library-modify\nuser-read-currently-playing\nplaylist-read-private\napp-remote-control\nplaylist-modify-private\nuser-library-read"
+    },
+    {
+        "id": "9369fd0.69a49",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "test",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "bcf5ca6.0b03038",
+        "type": "http in",
+        "z": "92a0f6fc.b5e148",
+        "name": "",
+        "url": "/action",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "16ab13ad.ead6ac"
+            ]
+        ]
+    },
+    {
+        "id": "16ab13ad.ead6ac",
+        "type": "json",
+        "z": "92a0f6fc.b5e148",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "942dc2c4.85f1b",
+                "90ca2277.9208e",
+                "fb99043c.101548",
+                "c1b196e5.0735a8"
+            ]
+        ]
+    },
+    {
+        "id": "e08ba5fb.ff3cd8",
+        "type": "link out",
+        "z": "92a0f6fc.b5e148",
+        "name": "outlets",
+        "links": [
+            "7f21a9e4.5db0b8"
+        ],
+        "x": 595,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "942dc2c4.85f1b",
+        "type": "function",
+        "z": "92a0f6fc.b5e148",
+        "name": "outlets",
+        "func": "if (msg.payload.category === \"outlets\") {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 100,
+        "wires": [
+            [
+                "e08ba5fb.ff3cd8"
+            ]
+        ]
+    },
+    {
+        "id": "3f76dc98.618cd4",
+        "type": "link out",
+        "z": "92a0f6fc.b5e148",
+        "name": "scenes",
+        "links": [
+            "56c843a5.8a902c"
+        ],
+        "x": 595,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "90ca2277.9208e",
+        "type": "function",
+        "z": "92a0f6fc.b5e148",
+        "name": "scenes",
+        "func": "if (msg.payload.category === \"scenes\") {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "3f76dc98.618cd4"
+            ]
+        ]
+    },
+    {
+        "id": "755683b6.5efecc",
+        "type": "link out",
+        "z": "92a0f6fc.b5e148",
+        "name": "system",
+        "links": [
+            "b40da46.4708e58"
+        ],
+        "x": 595,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "fb99043c.101548",
+        "type": "function",
+        "z": "92a0f6fc.b5e148",
+        "name": "system",
+        "func": "if (msg.payload.category === \"system\") {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "755683b6.5efecc"
+            ]
+        ]
+    },
+    {
+        "id": "7f21a9e4.5db0b8",
+        "type": "link in",
+        "z": "cbe4eff8.67bca",
+        "name": "outlets",
+        "links": [
+            "e08ba5fb.ff3cd8"
+        ],
+        "x": 55,
+        "y": 100,
+        "wires": [
+            [
+                "bbce2879.d25108",
+                "17dc125b.74255e",
+                "629e4f2d.9a62"
+            ]
+        ]
+    },
+    {
+        "id": "56c843a5.8a902c",
+        "type": "link in",
+        "z": "cbe4eff8.67bca",
+        "name": "scenes",
+        "links": [
+            "3f76dc98.618cd4"
+        ],
+        "x": 55,
+        "y": 260,
+        "wires": [
+            [
+                "bbec940e.e768f8"
+            ]
+        ]
+    },
+    {
+        "id": "b40da46.4708e58",
+        "type": "link in",
+        "z": "cbe4eff8.67bca",
+        "name": "system",
+        "links": [
+            "755683b6.5efecc"
+        ],
+        "x": 55,
+        "y": 340,
+        "wires": [
+            [
+                "e082ed7a.3431c",
+                "d8a15866.ed93a8"
+            ]
+        ]
+    },
+    {
+        "id": "e082ed7a.3431c",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "reboot",
+        "func": "if (msg.payload.device === \"reboot\") {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 400,
+        "wires": [
+            [
+                "5323332e.d20f2c"
+            ]
+        ]
+    },
+    {
+        "id": "d8a15866.ed93a8",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "raspotify-restart",
+        "func": "if (msg.payload.device === \"raspotify-restart\") {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 200,
+        "y": 340,
+        "wires": [
+            [
+                "c17c65da.2c2938"
+            ]
+        ]
+    },
+    {
+        "id": "28c70c22.a08324",
+        "type": "http response",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 770,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "54dadeb.51b572",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "func": "var received = msg.payload;\n\nif (received.code === 0) {\n    received.message = \"Raspotify has been restarted.\"\n} else message = received.message\n\nmsg.payload = {\n    \"category\": received.category,\n    \"device\": received.device,\n    \"message\": received.message\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 340,
+        "wires": [
+            [
+                "28c70c22.a08324"
+            ]
+        ]
+    },
+    {
+        "id": "c17c65da.2c2938",
+        "type": "exec",
+        "z": "cbe4eff8.67bca",
+        "command": "sudo systemctl restart raspotify",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [],
+            [],
+            [
+                "54dadeb.51b572"
+            ]
+        ]
+    },
+    {
+        "id": "5323332e.d20f2c",
+        "type": "exec",
+        "z": "cbe4eff8.67bca",
+        "command": "sudo reboot",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 370,
+        "y": 400,
+        "wires": [
+            [],
+            [],
+            [
+                "8c6dfc4d.2fe"
+            ]
+        ]
+    },
+    {
+        "id": "8c6dfc4d.2fe",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "func": "var received = msg.payload;\n\nif (received.code === 0) {\n    received.message = \"RaspberryPi has been rebooted.\"\n} else message = received.message\n\nmsg.payload = {\n    \"category\": received.category,\n    \"device\": received.device,\n    \"message\": received.message\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 400,
+        "wires": [
+            [
+                "28c70c22.a08324"
+            ]
+        ]
+    },
+    {
+        "id": "b64982f.f5a128",
+        "type": "http response",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 370,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bbce2879.d25108",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "func": "var received = msg.payload;\nvar message;\n\nif (received.action === 1) {\n    message = 1;\n} else {\n    message = 0;\n}\n\nmsg.payload = {\n    \"category\": received.category,\n    \"device\": received.device,\n    \"message\": message\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "b64982f.f5a128"
+            ]
+        ]
+    },
+    {
+        "id": "bf1c5955.8b7db8",
+        "type": "mqtt out",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 370,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "17dc125b.74255e",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "outlet1",
+        "func": "var received = msg.payload;\n\nif (received.device == \"outlet1\") {\n    msg = {\n        \"payload\": received.action,\n        \"topic\": \"home/\"+received.category+\"/\"+received.device,\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "bf1c5955.8b7db8"
+            ]
+        ]
+    },
+    {
+        "id": "3c91a15b.5a076e",
+        "type": "mqtt out",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 370,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "629e4f2d.9a62",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "outlet2",
+        "func": "var received = msg.payload;\n\nif (received.device == \"outlet2\") {\n    msg = {\n        \"payload\": received.action,\n        \"topic\": \"home/\"+received.category+\"/\"+received.device,\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "3c91a15b.5a076e"
+            ]
+        ]
+    },
+    {
+        "id": "bbec940e.e768f8",
+        "type": "function",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "func": "var received = msg.payload;\nvar message;\n\nif (received.action === 1) {\n    message = 1;\n} else {\n    message = 0;\n}\n\nmsg.payload = {\n    \"category\": received.category,\n    \"device\": received.device,\n    \"message\": message\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "1833691.d8a1997"
+            ]
+        ]
+    },
+    {
+        "id": "1833691.d8a1997",
+        "type": "http response",
+        "z": "cbe4eff8.67bca",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 370,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "1d0c2e55.5de112",
+        "type": "exec",
+        "z": "c884c417.19b658",
+        "command": "cat /proc/asound/card1/pcm0p/sub0/status",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "a6d8bcf1.8048c"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c3476d75.1645f",
+        "type": "inject",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "1d0c2e55.5de112"
+            ]
+        ]
+    },
+    {
+        "id": "a6d8bcf1.8048c",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "if (msg.payload.length == 7) {\n    msg = {\n        \"payload\": 0,\n        \"topic\": \"home/outlets/outlet1\"\n    };\n} else {\n    msg = {\n        \"payload\": 1,\n        \"topic\": \"home/outlets/outlet1\"\n    };\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "d04e1441.800748"
+            ]
+        ]
+    },
+    {
+        "id": "563efa67.ebf304",
+        "type": "mqtt out",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 650,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "d04e1441.800748",
+        "type": "switch",
+        "z": "c884c417.19b658",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "ce1d900d.381c5"
+            ],
+            [
+                "563efa67.ebf304"
+            ]
+        ]
+    },
+    {
+        "id": "c70f9683.3767b8",
+        "type": "exec",
+        "z": "c884c417.19b658",
+        "command": "cat /proc/asound/card1/pcm0p/sub0/status",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "f917e32.925d42"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f917e32.925d42",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "if (msg.payload.length == 7) {\n    msg = {\n        \"payload\": 0,\n        \"topic\": \"home/outlets/outlet1\"\n    };\n} else {\n    msg = {\n        \"payload\": 1,\n        \"topic\": \"home/outlets/outlet1\"\n    };\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 320,
+        "wires": [
+            [
+                "563efa67.ebf304"
+            ]
+        ]
+    },
+    {
+        "id": "ce1d900d.381c5",
+        "type": "delay",
+        "z": "c884c417.19b658",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "30",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "c70f9683.3767b8"
+            ]
+        ]
+    },
+    {
+        "id": "d1da7f91.17a6c",
+        "type": "mqtt in",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/remotes/main",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "33b6db4f.05d844",
+                "b2578b13.cf8f48",
+                "77842b76.a6a374",
+                "931bfd7d.cb70a",
+                "d0773388.ce07c",
+                "d5cb5a4f.a7c708",
+                "87a53d04.ab071",
+                "30fcd51c.09417a",
+                "11bb009f.ecdb7f",
+                "d4de06a0.7d1138",
+                "14454b78.a21625",
+                "fad80a96.cf2b28",
+                "c056b6d0.75e258",
+                "39565445.18c44c",
+                "1d88e79f.660358"
+            ]
+        ]
+    },
+    {
+        "id": "5eaae09a.bacdc",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/outlets/outlet1",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 680,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "33b6db4f.05d844",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "CH",
+        "func": "var received = msg.payload;\n\nif (received == \"CH\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 260,
+        "wires": [
+            [
+                "8e37759.b894788"
+            ]
+        ]
+    },
+    {
+        "id": "b2578b13.cf8f48",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "playpause",
+        "func": "var received = msg.payload;\n\nif (received == \"playpause\") {\n    msg = {\n        \"payload\": \"1\"\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 380,
+        "wires": [
+            [
+                "b4cfccfb.cb046"
+            ]
+        ]
+    },
+    {
+        "id": "77842b76.a6a374",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "prev",
+        "func": "var received = msg.payload;\n\nif (received == \"prev\") {\n    msg = {\n        \"payload\": \"1\"\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 440,
+        "wires": [
+            [
+                "a33edd3c.9ae33"
+            ]
+        ]
+    },
+    {
+        "id": "931bfd7d.cb70a",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "next",
+        "func": "var received = msg.payload;\n\nif (received == \"next\") {\n    msg = {\n        \"payload\": \"1\"\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 500,
+        "wires": [
+            [
+                "8d9c4b87.9b00f8"
+            ]
+        ]
+    },
+    {
+        "id": "d0773388.ce07c",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "-",
+        "func": "var received = msg.payload;\n\nif (received == \"-\") {\n    msg = {\n        \"payload\": \"1\"\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 560,
+        "wires": [
+            [
+                "fed1f87b.9142f8"
+            ]
+        ]
+    },
+    {
+        "id": "d5cb5a4f.a7c708",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "+",
+        "func": "var received = msg.payload;\n\nif (received == \"+\") {\n    msg = {\n        \"payload\": \"1\"\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 620,
+        "wires": [
+            [
+                "ea794ac.f61c2b8"
+            ]
+        ]
+    },
+    {
+        "id": "87a53d04.ab071",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "EQ",
+        "func": "var received = msg.payload;\n\nif (received == \"EQ\") {\n    msg = {\n        \"payload\": \"1\"\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 680,
+        "wires": [
+            [
+                "e4a3f629.c72188"
+            ]
+        ]
+    },
+    {
+        "id": "b6ad6d2b.caa92",
+        "type": "mqtt out",
+        "z": "92a0f6fc.b5e148",
+        "name": "",
+        "topic": "home/remotes/http",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 670,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c1b196e5.0735a8",
+        "type": "function",
+        "z": "92a0f6fc.b5e148",
+        "name": "remote",
+        "func": "var received = msg.payload;\n\nif (received.category == \"remote\") {\n    msg = {\n        \"payload\": received.device,\n    };\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 440,
+        "y": 220,
+        "wires": [
+            [
+                "b6ad6d2b.caa92"
+            ]
+        ]
+    },
+    {
+        "id": "d5963649.6f6fa8",
+        "type": "mqtt in",
+        "z": "92a0f6fc.b5e148",
+        "name": "",
+        "topic": "home/remotes/http",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "45e6da52.38d274"
+            ]
+        ]
+    },
+    {
+        "id": "45e6da52.38d274",
+        "type": "mqtt out",
+        "z": "92a0f6fc.b5e148",
+        "name": "",
+        "topic": "home/remotes/main",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 680,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "30fcd51c.09417a",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "CH-",
+        "func": "var received = msg.payload;\n\nif (received == \"CH+\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "7023142e.d6890c"
+            ]
+        ]
+    },
+    {
+        "id": "11bb009f.ecdb7f",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "CH-",
+        "func": "var received = msg.payload;\n\nif (received == \"CH-\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "fbc8b4d6.585f68"
+            ]
+        ]
+    },
+    {
+        "id": "d4de06a0.7d1138",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "200+",
+        "func": "var received = msg.payload;\n\nif (received == \"200+\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 740,
+        "wires": [
+            [
+                "74203659.cae088"
+            ]
+        ]
+    },
+    {
+        "id": "b9077bd9.d00268",
+        "type": "exec",
+        "z": "c884c417.19b658",
+        "command": "amixer set Speaker toggle",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 530,
+        "y": 520,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d9abc85a.ff1f08",
+        "type": "exec",
+        "z": "c884c417.19b658",
+        "command": "amixer set Speaker 5%+",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b57023ac.03d07",
+        "type": "exec",
+        "z": "c884c417.19b658",
+        "command": "amixer set Speaker 5%-",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 530,
+        "y": 460,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "27857097.95d4d",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/volumeup",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 180,
+        "y": 400,
+        "wires": [
+            [
+                "d9abc85a.ff1f08"
+            ]
+        ]
+    },
+    {
+        "id": "7f56c1d7.838a9",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/volumedown",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "b57023ac.03d07"
+            ]
+        ]
+    },
+    {
+        "id": "bc50358f.b79058",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/mute",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 170,
+        "y": 520,
+        "wires": [
+            [
+                "b9077bd9.d00268"
+            ]
+        ]
+    },
+    {
+        "id": "fed1f87b.9142f8",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/volumedown",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 690,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "ea794ac.f61c2b8",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/volumeup",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 690,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "e4a3f629.c72188",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/mute",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 670,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b4cfccfb.cb046",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/playpause",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 690,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "8d9c4b87.9b00f8",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/next",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 670,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "a33edd3c.9ae33",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/prev",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 670,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "8ec9368f.3cf758",
+        "type": "exec",
+        "z": "c884c417.19b658",
+        "command": "cat /proc/asound/card1/pcm0p/sub0/status",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 490,
+        "y": 660,
+        "wires": [
+            [
+                "60431e47.a35a5"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "60431e47.a35a5",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "if (msg.payload.length == 7) {\n    msg = {\n        \"payload\": 0,\n    };\n} else {\n    msg = {\n        \"payload\": 1,\n    };\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 740,
+        "wires": [
+            [
+                "27aff793.23a008"
+            ]
+        ]
+    },
+    {
+        "id": "27aff793.23a008",
+        "type": "switch",
+        "z": "c884c417.19b658",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 410,
+        "y": 740,
+        "wires": [
+            [
+                "efb418c4.8e44f8"
+            ],
+            [
+                "f701f1ff.9bb3b"
+            ]
+        ]
+    },
+    {
+        "id": "2f6758d1.e7be98",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "play",
+        "x": 750,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f701f1ff.9bb3b",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "pause",
+        "x": 750,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "472a3b3f.52d1f4",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/playpause",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 180,
+        "y": 660,
+        "wires": [
+            [
+                "8ec9368f.3cf758"
+            ]
+        ]
+    },
+    {
+        "id": "a6acc02d.67f91",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "skipToPrevious",
+        "x": 500,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4b844154.ba111",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "skipToNext",
+        "x": 490,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d7269874.45b878",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/prev",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 170,
+        "y": 840,
+        "wires": [
+            [
+                "a6acc02d.67f91"
+            ]
+        ]
+    },
+    {
+        "id": "b9bfb04a.808e6",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/next",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 160,
+        "y": 900,
+        "wires": [
+            [
+                "4b844154.ba111"
+            ]
+        ]
+    },
+    {
+        "id": "bf1afdc8.889f1",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "setShuffle",
+        "x": 720,
+        "y": 1260,
+        "wires": [
+            [
+                "2cb940be.a5445"
+            ]
+        ]
+    },
+    {
+        "id": "2ffd842b.22282c",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\"state\": true}\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 1200,
+        "wires": [
+            [
+                "bf1afdc8.889f1"
+            ]
+        ]
+    },
+    {
+        "id": "b9f1e852.73c1a8",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "play",
+        "x": 710,
+        "y": 1140,
+        "wires": [
+            [
+                "2ffd842b.22282c"
+            ]
+        ]
+    },
+    {
+        "id": "31f28550.cb51aa",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\n        \"device_id\": 'dbd99cee9c6a88294781c5024df88d903057f310',\n        \"context_uri\": \"spotify:playlist:7K6xgdjq4IyYDTctOXmE6y\"\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1140,
+        "wires": [
+            [
+                "b9f1e852.73c1a8"
+            ]
+        ]
+    },
+    {
+        "id": "b8220660.8a3cd8",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/playlist/lenny",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 190,
+        "y": 1140,
+        "wires": [
+            [
+                "31f28550.cb51aa"
+            ]
+        ]
+    },
+    {
+        "id": "74203659.cae088",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/playlist/lenny",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 690,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "fbc8b4d6.585f68",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "toggle",
+        "func": "    msg = {\n        \"payload\": \"toggle\"\n    };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "5eaae09a.bacdc"
+            ]
+        ]
+    },
+    {
+        "id": "1afafba4.cd5bd4",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/outlets/outlet2",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 680,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8e37759.b894788",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "toggle",
+        "func": "    msg = {\n        \"payload\": \"toggle\"\n    };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 260,
+        "wires": [
+            [
+                "1afafba4.cd5bd4"
+            ]
+        ]
+    },
+    {
+        "id": "6fe306fc.852308",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/outlets/outlet2",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 680,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7023142e.d6890c",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "toggle",
+        "func": "    msg = {\n        \"payload\": \"toggle\"\n    };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 320,
+        "wires": [
+            [
+                "6fe306fc.852308"
+            ]
+        ]
+    },
+    {
+        "id": "3e68963f.cbd38a",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/playlist/liked",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 190,
+        "y": 1200,
+        "wires": [
+            [
+                "323f9e04.9732b2"
+            ]
+        ]
+    },
+    {
+        "id": "323f9e04.9732b2",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\n        \"device_id\": 'dbd99cee9c6a88294781c5024df88d903057f310',\n        \"context_uri\": \"spotify:playlist:7mpa6SZkM3l8eBfcvuR5iJ\"\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1200,
+        "wires": [
+            [
+                "b9f1e852.73c1a8"
+            ]
+        ]
+    },
+    {
+        "id": "14454b78.a21625",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "100+",
+        "func": "var received = msg.payload;\n\nif (received == \"100+\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 800,
+        "wires": [
+            [
+                "884a5755.aab4d8"
+            ]
+        ]
+    },
+    {
+        "id": "884a5755.aab4d8",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/playlist/liked",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 690,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "efb418c4.8e44f8",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\n        \"device_id\": 'dbd99cee9c6a88294781c5024df88d903057f310'\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 720,
+        "wires": [
+            [
+                "2f6758d1.e7be98"
+            ]
+        ]
+    },
+    {
+        "id": "2cb940be.a5445",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "skipToNext",
+        "x": 730,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d267c674.0e7458",
+        "type": "comment",
+        "z": "c884c417.19b658",
+        "name": "Jak gra muzyczka, to włącza wzmacniacz, jak nie gra to wyłącza",
+        "info": "",
+        "x": 290,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "55303bee.ce7d34",
+        "type": "comment",
+        "z": "c884c417.19b658",
+        "name": "Jak gra muzyczka to pauzuje, jak nie to playuje",
+        "info": "",
+        "x": 260,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "bed0d254.5e2c7",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "play",
+        "x": 470,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55368bc8.697cb4",
+        "type": "spotify",
+        "z": "c884c417.19b658",
+        "name": "",
+        "auth": "26c5389a.3e7948",
+        "api": "pause",
+        "x": 470,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "525e8774.1ef778",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/pause",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 170,
+        "y": 960,
+        "wires": [
+            [
+                "55368bc8.697cb4"
+            ]
+        ]
+    },
+    {
+        "id": "204e284f.2c0088",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/play",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 160,
+        "y": 1020,
+        "wires": [
+            [
+                "bed0d254.5e2c7"
+            ]
+        ]
+    },
+    {
+        "id": "6aba9031.e9518",
+        "type": "comment",
+        "z": "c884c417.19b658",
+        "name": "playlisty na spotify, shuffle",
+        "info": "",
+        "x": 190,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "680062f6.0b0a5c",
+        "type": "comment",
+        "z": "4305c329.dc5d6c",
+        "name": "main",
+        "info": "",
+        "x": 90,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1cc5a199.3f81fe",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\n        \"device_id\": 'dbd99cee9c6a88294781c5024df88d903057f310',\n        \"context_uri\": \"spotify:artist:5K4W6rqBFWDnAN6FQUkS6x\"\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1260,
+        "wires": [
+            [
+                "b9f1e852.73c1a8"
+            ]
+        ]
+    },
+    {
+        "id": "d24542db.6d78e",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/playlist/kanye",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 190,
+        "y": 1260,
+        "wires": [
+            [
+                "1cc5a199.3f81fe"
+            ]
+        ]
+    },
+    {
+        "id": "4bca419c.b9cef",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/playlist/kanye",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 700,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "fad80a96.cf2b28",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "0",
+        "func": "var received = msg.payload;\n\nif (received == \"0\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 860,
+        "wires": [
+            [
+                "4bca419c.b9cef"
+            ]
+        ]
+    },
+    {
+        "id": "5e61077b.f931c8",
+        "type": "mqtt out",
+        "z": "999025bf.8bdb68",
+        "name": "",
+        "topic": "home/outlets/outlet2",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "bfb9fd76.8eeb7",
+        "type": "nora-light",
+        "z": "999025bf.8bdb68",
+        "devicename": "Desk lamp",
+        "lightcolor": false,
+        "brightnesscontrol": true,
+        "turnonwhenbrightnesschanges": false,
+        "passthru": false,
+        "statepayload": true,
+        "brightnessoverride": "",
+        "roomhint": "",
+        "name": "",
+        "nora": "4140c906.fd0ef8",
+        "topic": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "6ca55d1b.8f0a44"
+            ]
+        ]
+    },
+    {
+        "id": "6ca55d1b.8f0a44",
+        "type": "function",
+        "z": "999025bf.8bdb68",
+        "name": "",
+        "func": "if (msg.payload.on) {\n    msg.payload = 1;\n} else msg.payload = 0;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 80,
+        "wires": [
+            [
+                "5e61077b.f931c8"
+            ]
+        ]
+    },
+    {
+        "id": "a92d2ba3.56c668",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/playlist/sok",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 190,
+        "y": 1320,
+        "wires": [
+            [
+                "a1e5fc1c.07049"
+            ]
+        ]
+    },
+    {
+        "id": "a1e5fc1c.07049",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\n        \"device_id\": 'dbd99cee9c6a88294781c5024df88d903057f310',\n        \"context_uri\": \"spotify:playlist:3JvmVp5j2P3Ga4m6DDuAEi\"\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1320,
+        "wires": [
+            [
+                "b9f1e852.73c1a8"
+            ]
+        ]
+    },
+    {
+        "id": "c056b6d0.75e258",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "1",
+        "func": "var received = msg.payload;\n\nif (received == \"1\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 920,
+        "wires": [
+            [
+                "da917e92.ed70d"
+            ]
+        ]
+    },
+    {
+        "id": "da917e92.ed70d",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/playlist/sok",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 690,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "f76275fa.bbdc88",
+        "type": "mqtt in",
+        "z": "c884c417.19b658",
+        "name": "",
+        "topic": "home/spotify/playlist/hakunamatata",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "b56a1133.b25be",
+        "x": 220,
+        "y": 1380,
+        "wires": [
+            [
+                "8866128e.84a2d"
+            ]
+        ]
+    },
+    {
+        "id": "8866128e.84a2d",
+        "type": "function",
+        "z": "c884c417.19b658",
+        "name": "",
+        "func": "msg.params = [\n    {\n        \"device_id\": 'dbd99cee9c6a88294781c5024df88d903057f310',\n        \"context_uri\": \"spotify:playlist:7tz0PJce5gFJ3WzbxG1yHU\"\n    }\n];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1380,
+        "wires": [
+            [
+                "b9f1e852.73c1a8"
+            ]
+        ]
+    },
+    {
+        "id": "39565445.18c44c",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "2",
+        "func": "var received = msg.payload;\n\nif (received == \"2\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 980,
+        "wires": [
+            [
+                "95f93422.40a968"
+            ]
+        ]
+    },
+    {
+        "id": "95f93422.40a968",
+        "type": "mqtt out",
+        "z": "4305c329.dc5d6c",
+        "name": "",
+        "topic": "home/spotify/playlist/hakunamatata",
+        "qos": "",
+        "retain": "",
+        "broker": "b56a1133.b25be",
+        "x": 720,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "e73ea94.257c958",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "raspotify-restart",
+        "func": "if (msg.payload.device === \"raspotify-restart\") {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 1040,
+        "wires": [
+            [
+                "dcbaa27a.9e4e8"
+            ]
+        ]
+    },
+    {
+        "id": "dcbaa27a.9e4e8",
+        "type": "exec",
+        "z": "4305c329.dc5d6c",
+        "command": "sudo systemctl restart raspotify",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 750,
+        "y": 1040,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1d88e79f.660358",
+        "type": "function",
+        "z": "4305c329.dc5d6c",
+        "name": "9",
+        "func": "var received = msg.payload;\n\nif (received == \"9\") {\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 1040,
+        "wires": [
+            [
+                "e73ea94.257c958"
+            ]
+        ]
+    }
+]

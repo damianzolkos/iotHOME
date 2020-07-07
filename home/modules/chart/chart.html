@@ -1,0 +1,116 @@
+<!--
+####################################
+
+        chart module
+
+        using chart.js
+        https://www.chartjs.org/
+        https://github.com/chartjs/Chart.js
+
+####################################
+-->
+
+<!-- additional config files -->
+
+<!-- module scecific styles -->
+
+<style rel="stylesheet">
+  #module_name_chart {
+    background: linear-gradient(45deg, #ff5252, #fc4e88) !important;
+    color: #fff;
+    position: relative;
+    font-weight: 300;
+    font-size: 14pt;
+    text-shadow: 0px 0px 2px #888;
+    width: calc(100% + 20px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    top: -20px;
+    left: -20px;
+    box-shadow: 0px 0px 1px #111;
+    border-radius: 1px;
+  }
+</style>
+
+
+<div class="module_wrapper" id="chart_module">
+  <p class="module_name red">A very basic chart</p>
+  <div class="module_content">
+    <br>
+    <canvas id="myChart" width="10" height="10"></canvas>
+    <canvas id="myChart2" width="10" height="10"></canvas>
+  </div>
+</div>
+</div>
+
+<!-- module specific scripts -->
+<script>
+  function chart(id, x, y) {
+    let ctx1 = document.getElementById(id);
+
+    let data = {
+      datasets: [{
+          backgroundColor: '#ff4081',
+          borderColor: '#ff4081',
+          borderWidth: 5,
+          fill: false,
+          pointRadius: 0,
+          pointRadiusHover: 4,
+          pointBorderWidth: 0
+        },
+        {
+          backgroundColor: 'blue',
+          borderColor: 'blue',
+          borderWidth: 3,
+          fill: false
+        }
+      ]
+    };
+
+    let options = {
+      responsive: true,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: true,
+      },
+      scales: {
+        xAxes: [{
+          isplay: false,
+          scaleLabel: {
+            display: false,
+            labelString: ''
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            suggestedMin: 20,
+            suggestedMax: 50
+          },
+          display: true,
+          scaleLabel: {
+            display: false,
+            labelString: ''
+          }
+        }]
+      }
+    };
+
+    function renderChart(x, y) {
+      data.labels = y;
+      data.datasets[0].data = x;
+
+      let myChart = new Chart(ctx1, {
+        type: 'line',
+        data: data,
+        options: options
+      });
+    }
+    renderChart(x, y);
+  };
+  chart("myChart", [40, 30, 45, 25, 35], [1, 2, 3, 4, 5]);
+
+</script>
