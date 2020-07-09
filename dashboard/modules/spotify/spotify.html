@@ -1,0 +1,70 @@
+<!--
+####################################
+        smallinfo module
+####################################
+ -->
+
+<!-- additional config files -->
+
+<!-- module scecific styles -->
+<style rel="stylesheet">
+    #spotify_module {
+        width: calc(100% - 40px);
+        height: calc(100% - 40px);
+        text-align: center;
+    }
+
+    .spotifyUl {
+        list-style-type: none;
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .spotifyUl li {
+        line-height: 30px;
+        text-align: left;
+    }
+
+    .spotify_green {
+        background: linear-gradient(45deg, #1db954, #1db954) !important;
+        color: #fff;
+    }
+
+    .spotifyUl li:hover {
+        text-decoration: underline;
+    }
+    .spotifyControls span:not(:last-child){
+        margin-right: 20px;
+    }
+</style>
+
+<!--
+############   MODULE BODY   ############
+ -->
+
+<div class="module_wrapper spotify_green" id="spotify_module">
+    <!-- <p class="module_name">Example module</p> -->
+    <div class="module_content">
+        <div class="module_group">
+            <p class="spotifyNowPlaying">
+                <p style="font-size: 18pt; margin: 5px 0px;">Stronger</p>
+                <p style="font-size: 16pt; margin: 5px 0px;">Kanye West</p>
+            </p>
+            <p class="spotifyControls" style="margin-top: 15px;">
+                <span class="material-icons">skip_previous</span>
+                <span class="material-icons">play_circle_outline</span>
+                <span class="material-icons">skip_next</span>
+            </p>
+            <ul class="spotifyUl">
+                <li>lenny</li>
+                <li>liked</li>
+                <li>kanye</li>
+                <li>sok</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- module specific scripts -->
+<script type="text/javascript">
+</script>

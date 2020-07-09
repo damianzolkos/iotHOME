@@ -14,6 +14,7 @@
   "activeModules": [
     ["buttons", "Homepage"],
     ["volume", "Homepage"],
+    ["spotify", "Homepage"],
     ["links", "Homepage"],
     ["remote","Remote"]
   ]
