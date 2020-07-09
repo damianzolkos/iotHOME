@@ -1,0 +1,84 @@
+<!--
+####################################
+        BUTTONS module
+####################################
+ -->
+
+<!-- additional config files -->
+<script src="modules/buttons/config.js" type="text/javascript"></script>
+
+<!-- module scecific styles -->
+<style rel="stylesheet">
+  #volumeRange {
+    width: 100%;
+  }
+</style>
+
+<!--
+############   MODULE BODY   ############
+ -->
+<div class="module_wrapper" id="volume_module">
+  <p class="module_name blue">Volume</p>
+  <div class="module_content">
+    <input onchange="volume()" id="volumeRange" type="range">
+  </div>
+</div>
+
+<!-- module specific scripts -->
+<script type="text/javascript">
+  function volume() {
+    sendVolume(document.getElementById("volumeRange").value);
+  }
+
+  const scale = (num, in_min, in_max, out_min, out_max) => {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  }
+
+  async function getVolume() {
+    let deviceAction = {
+      "category": "system",
+      "device": "volumeGet",
+      "action": 1
+    };
+
+    let url = config.serverAddress + ":1880/action";
+
+    let actionJSON = JSON.stringify(deviceAction);
+
+    await fetch(url, {
+      method: 'post',
+      body: actionJSON
+    }).then(function (response) {
+      return response.json();
+    }).then(function (receivedJSON) {
+
+      console.log(receivedJSON.message);
+      document.getElementById("volumeRange").value = parseInt(receivedJSON.message);
+
+    });
+  }
+  getVolume();
+
+  async function sendVolume(volume) {
+    let deviceAction = {
+      "category": "system",
+      "device": "volume",
+      "action": 1
+    };
+
+    let url = config.serverAddress + ":1880/action";
+
+    // deviceAction.action = parseInt(scale(volume, 0, 100, 0, 30));
+    deviceAction.action = parseInt(volume);
+
+    let actionJSON = JSON.stringify(deviceAction);
+
+    await fetch(url, {
+      method: 'post',
+      body: actionJSON
+    }).then(function (response) {
+      return response.json();
+    }).then(function (receivedJSON) {
+    });
+  }
+</script>

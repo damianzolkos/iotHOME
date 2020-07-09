@@ -8,8 +8,8 @@ const char* nazwa = "iotHOME_esp";
 const char* wersja = "0.6.9";
 
 // wifi config
-const char* ssid = "ssid";
-const char* password = "password";
+const char* ssid = "PanRouter";
+const char* password = "odjedendoosiem";
 
 int input_pin = 23; // wpisujemy nazwę pinu, po którym nastepuje komunikacja
 IRrecv irrecv(input_pin);
@@ -36,6 +36,9 @@ const char* outlet1_state;
 
 bool czy_przycisk = false;
 
+unsigned long long lastMillis = 0;
+int delayTime = 5000;
+
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -49,6 +52,11 @@ void mqttAssign() {
   topic[2] = "home/outlets/outlet3";
   pin[2] = 21;
   state[2] = LOW;
+  pin[3] = 27;
+  state[3] = LOW;
+  pin[4] = 13;
+  state[4] = LOW;
+  topic[4] = "home/outlets/outlet4";
 }
 
 void mqttSubscribe() {
@@ -128,6 +136,8 @@ void setup() {
   pinMode(pin[0], OUTPUT);
   pinMode(pin[1], OUTPUT);
   pinMode(pin[2], OUTPUT);
+  pinMode(pin[3], INPUT_PULLUP);
+  pinMode(pin[4], OUTPUT);
   pinMode(A0, INPUT);
 
   Serial.begin(9600);
@@ -143,6 +153,7 @@ void setup() {
 
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
+  lastMillis = millis();
 }
 
 void loop() {
@@ -150,6 +161,15 @@ void loop() {
     reconnect();
   }
   client.loop();
+
+
+  if (millis() > lastMillis + delayTime) {
+    if (digitalRead(pin[3]) == LOW) {
+      client.publish("home/wzmacniacz/state", "1");
+    } else client.publish("home/wzmacniacz/state", "0");
+    lastMillis = millis();
+  }
+
 
   if (irrecv.decode(&signals)) {
     irrecv.blink13(true); // mrugamy diodami w arduino

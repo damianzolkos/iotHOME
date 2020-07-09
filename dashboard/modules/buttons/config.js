@@ -6,8 +6,6 @@ var groups = ['Bedroom','Raspberry Pi'];
 var buttons = [
   ['Bedroom','Outlet','outlets','outlet1'],
   ['Bedroom','Light','outlets','outlet2'],
-  ['Bedroom','Music','scenes','music'],
-  ['Bedroom','Lights','scenes','lights'],
   ['Raspberry Pi','Restart Spotify','system','raspotify-restart'],
   ['Raspberry Pi','Reboot','system','reboot']
 ]
