@@ -63,23 +63,27 @@
 
 <!-- module specific scripts -->
 <script type="text/javascript">
-async function getWhoshome() {
-    people = await getData("http://127.0.0.1:5500/server/people.json");
-    people.people.forEach(element => {
-        let ul = document.getElementById('whoshome_ul');
-        let li = document.createElement('li');
-        let div = document.createElement('div');
-        div.className = "image-cropper";
-        let img = document.createElement('img');
-        img.src = "modules/whoshome/"+element.name.toLowerCase()+".png";
-        div.appendChild(img);
-        li.appendChild(div);
-        let span = document.createElement('span');
-        span.innerHTML = element.name;
-        span.className = "whoshome_name";
-        li.appendChild(span);
-        ul.appendChild(li);
-    });
-}
-getWhoshome();
+    var peopleURL = "../server/people.json";
+    // var peopleURL = config.serverAddress + "/people.json";
+    async function getWhoshome() {
+        people = await getData(peopleURL);
+        if (people == "404") {} else {
+            people.people.forEach(element => {
+                let ul = document.getElementById('whoshome_ul');
+                let li = document.createElement('li');
+                let div = document.createElement('div');
+                div.className = "image-cropper";
+                let img = document.createElement('img');
+                img.src = "modules/whoshome/" + element.name.toLowerCase() + ".png";
+                div.appendChild(img);
+                li.appendChild(div);
+                let span = document.createElement('span');
+                span.innerHTML = element.name;
+                span.className = "whoshome_name";
+                li.appendChild(span);
+                ul.appendChild(li);
+            });
+        }
+    }
+    getWhoshome();
 </script>

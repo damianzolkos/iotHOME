@@ -68,10 +68,10 @@
 <!-- module specific scripts -->
 <script type="text/javascript">
     var spotify;
-    var spotifyUrl = "/server/spotify.json";
-
+    // var spotifyURL = config.serverAddress+"/spotify.json";
+    var spotifyURL = "../server/spotify.json";
     async function getSpotify() {
-        spotify = await getData(spotifyUrl);
+        spotify = await getData(spotifyURL);
         if (spotify === "err") {
             document.getElementById('spotifyArtist').innerHTML = "connection error...";
         } else {
