@@ -1,0 +1,7 @@
+{
+    "groups": ["Bedroom"],
+    "buttons": [
+        ["Bedroom","Amplifier","outlets","outlet1"],
+        ["Bedroom","Light","outlets","outlet2"]
+    ]
+}

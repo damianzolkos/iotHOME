@@ -8,7 +8,7 @@
     "type": "column"
   },
   {
-    "name": "Remote",
+    "name": "System",
     "type": "column"
   }],
   "activeModules": [
@@ -16,7 +16,6 @@
     ["volume", "Homepage"],
     ["spotify", "Homepage"],
     ["whoshome", "Homepage"],
-    ["links", "Homepage"],
-    ["remote","Remote"]
+    ["links", "Homepage"]
   ]
 }

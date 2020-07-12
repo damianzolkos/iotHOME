@@ -42,6 +42,13 @@
         width: 30px;
         height: auto;
         cursor: pointer;
+        padding: 5px;
+        /* border: 1px solid rgba(17, 17, 17, 0.15); */
+        /* border-radius: 10px; */
+    }
+    .spotifyControls img:hover {
+        background-color: rgba(17, 17, 17, 0.1);
+        border-radius: 10px;
     }
 </style>
 
@@ -53,12 +60,12 @@
     <div class="module_content">
         <div class="module_group">
             <p class="spotifyNowPlaying">
-                <p style="font-size: 18pt; margin: 5px 0px;" id="spotifyTitle"></p>
-                <p style="font-size: 16pt; margin: 5px 0px;" id="spotifyArtist"></p>
+                <p style="font-size: 18pt;" id="spotifyTitle"></p>
+                <p style="font-size: 16pt; font-weight: 200;" id="spotifyArtist"></p>
             </p>
-            <p class="spotifyControls" style="margin-top: 25px;">
+            <p class="spotifyControls" style="margin-top: 20px;">
                 <img src="modules/spotify/prev.png" onclick="spotifyAction('prev')">
-                <img id="spotifyPlay" src="modules/spotify/play.png" onclick="spotifyAction('playpause')">
+                <img src="modules/spotify/play.png" onclick="spotifyAction('playpause')" id="spotifyPlay">
                 <img src="modules/spotify/next.png" onclick="spotifyAction('next')">
             </p>
         </div>

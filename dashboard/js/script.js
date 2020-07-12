@@ -1,4 +1,5 @@
 const configAddress = "config.json";
+var themeColor = "#2d00a0";
 
 let notifications = 0;
 let messages = [];
@@ -11,18 +12,21 @@ async function getData(url) {
                 if (response.status !== 200) {
                     console.log('There was a problem. Status Code: ' +
                         response.status);
-                    return "err";
+                    return response.status;
                 }
                 return response.json();
             }
         )
         .catch(function (err) {
-            console.log('Fetch Error', err);
+            console.log('Fetch Error ', err);
         });
     return data;
 }
 
 var mq = window.matchMedia("(max-width: 500px)");
+
+var metaThemeColor = document.querySelector("meta[name=theme-color]");
+metaThemeColor.setAttribute("content", themeColor)
 
 async function onLoad() {
     config = await getData(configAddress);
@@ -48,11 +52,6 @@ async function onLoad() {
     clock();
     notificationsCounterUpdate();
 
-    // show
-    // alarm(config.appName, "Simple and responsive web app interface with modules support.", "img/favicon.png");
-    // newNotification("Test notification #1");
-    // newNotification("Test notification #2");
-
     config.pages.forEach((item) => {
         createSidebarMenuItem(item.name);
         createPages(item);
@@ -68,7 +67,7 @@ async function onLoad() {
 
             $.getJSON("modules/" + module_name + "/" + module_name + ".json", function (json) {
                 let module = JSON.parse(JSON.stringify(json));
-    
+
                 if (module.visibility == "none") {
                     module_page = config.pages[0];
                 } else {
@@ -82,7 +81,7 @@ async function onLoad() {
                         }
                     } else module_page = item[1];
                 }
-    
+
                 if (createBox(module_page, module.id + Math.floor(Math.random() * 1000000000), module.name, module.visibility)) {
                     console.log("loaded: " + module_name);
                 }
@@ -98,19 +97,7 @@ function clock() {
 }
 
 function getTime() {
-    var month = new Array();
-    month[0] = "January";
-    month[1] = "February";
-    month[2] = "March";
-    month[3] = "April";
-    month[4] = "May";
-    month[5] = "June";
-    month[6] = "July";
-    month[7] = "August";
-    month[8] = "September";
-    month[9] = "October";
-    month[10] = "November";
-    month[11] = "December";
+    var month = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
     var d = new Date();
     var month = month[d.getMonth()];
@@ -119,16 +106,12 @@ function getTime() {
     var hour = d.getHours();
     var minutes = d.getMinutes();
 
-    if (minutes == 0) minutes = "00";
-    else if (minutes == 1) minutes = "01";
-    else if (minutes == 2) minutes = "02";
-    else if (minutes == 3) minutes = "03";
-    else if (minutes == 4) minutes = "04";
-    else if (minutes == 5) minutes = "05";
-    else if (minutes == 6) minutes = "06";
-    else if (minutes == 7) minutes = "07";
-    else if (minutes == 8) minutes = "08";
-    else if (minutes == 9) minutes = "09";
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if (hour < 10) {
+        hour = "0" + hour; 
+    }
 
     h = hour.toString();
     m = minutes.toString();
@@ -170,7 +153,7 @@ function changeScreen(nameOfScreen) {
 function createPages(page) {
     let newPage = document.createElement("div");
     newPage.id = page.name;
-    newPage.className = "page "+page.type;
+    newPage.className = "page " + page.type;
     document.getElementById("wrapper").appendChild(newPage);
 }
 
@@ -254,7 +237,7 @@ function showSidebar() {
         sidebar.style.transform = 'translate(0px,0px)';
         content.style.left = "250px";
 
-        if (mq.matches == false) {
+        if (!mq.matches) {
             content.style.width = 'calc(100% - 250px)';
         }
 
@@ -268,7 +251,3 @@ function showSidebar() {
         document.getElementById("mobile_logo").style.display = "inline-block";
     }
 }
-
-
-// $('body').removeClass('stop-scrolling');
-// $('body').addClass('stop-scrolling');
