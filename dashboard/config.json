@@ -6,10 +6,6 @@
   "pages": [{
     "name": "Homepage",
     "type": "column"
-  },
-  {
-    "name": "System",
-    "type": "column"
   }],
   "activeModules": [
     ["buttons", "Homepage"],
