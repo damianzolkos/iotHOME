@@ -1,0 +1,16 @@
+{
+	"people" : [{
+		"name": "Damian",
+		"uuid": "0001",
+		"icon": "damian.png",
+		"wifi-mac": "8e:b4:60:5b:a1:fe",
+		"bluetooth-mac": "8e:b4:60:5b:a1:fe"
+	},
+	{
+		"name": "Krawczyk",
+		"uuid": "0002",
+		"icon": "bartek.png",
+		"wifi-mac": "8e:b4:60:5b:a1:fe",
+		"bluetooth-mac": "8e:b4:60:5b:a1:fe"
+	}]
+}

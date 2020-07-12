@@ -1,0 +1,24 @@
+{
+	"name": "device",
+	"category": "light",
+	"inputs": [
+		{
+			"name": "state",
+			"type": "boolean",
+			"possible": [
+				true,
+				false
+			]
+		}
+	],
+	"outputs": [
+		{
+			"name": "state",
+			"type": "boolean",
+			"possible": [
+				true,
+				false
+			]
+		}
+	]
+}

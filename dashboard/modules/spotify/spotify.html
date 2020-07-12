@@ -1,6 +1,6 @@
 <!--
 ####################################
-        smallinfo module
+        spotify module
 ####################################
  -->
 
@@ -33,8 +33,15 @@
     .spotifyUl li:hover {
         text-decoration: underline;
     }
-    .spotifyControls span:not(:last-child){
+
+    .spotifyControls img:not(:last-child) {
         margin-right: 20px;
+    }
+
+    .spotifyControls img {
+        width: 30px;
+        height: auto;
+        cursor: pointer;
     }
 </style>
 
@@ -43,28 +50,55 @@
  -->
 
 <div class="module_wrapper spotify_green" id="spotify_module">
-    <!-- <p class="module_name">Example module</p> -->
     <div class="module_content">
         <div class="module_group">
             <p class="spotifyNowPlaying">
-                <p style="font-size: 18pt; margin: 5px 0px;">Stronger</p>
-                <p style="font-size: 16pt; margin: 5px 0px;">Kanye West</p>
+                <p style="font-size: 18pt; margin: 5px 0px;" id="spotifyTitle"></p>
+                <p style="font-size: 16pt; margin: 5px 0px;" id="spotifyArtist"></p>
             </p>
-            <p class="spotifyControls" style="margin-top: 15px;">
-                <span class="material-icons">skip_previous</span>
-                <span class="material-icons">play_circle_outline</span>
-                <span class="material-icons">skip_next</span>
+            <p class="spotifyControls" style="margin-top: 25px;">
+                <img src="modules/spotify/prev.png" onclick="spotifyAction('prev')">
+                <img id="spotifyPlay" src="modules/spotify/play.png" onclick="spotifyAction('playpause')">
+                <img src="modules/spotify/next.png" onclick="spotifyAction('next')">
             </p>
-            <ul class="spotifyUl">
-                <li>lenny</li>
-                <li>liked</li>
-                <li>kanye</li>
-                <li>sok</li>
-            </ul>
         </div>
     </div>
 </div>
 
 <!-- module specific scripts -->
 <script type="text/javascript">
+    var spotify;
+    var spotifyUrl = "/server/spotify.json";
+
+    async function getSpotify() {
+        spotify = await getData(spotifyUrl);
+        if (spotify === "err") {
+            document.getElementById('spotifyArtist').innerHTML = "connection error...";
+        } else {
+            document.getElementById('spotifyTitle').innerHTML = spotify.title;
+            document.getElementById('spotifyArtist').innerHTML = spotify.artist;
+
+            if (spotify.state === "paused") {
+                document.getElementById('spotifyPlay').src = "modules/spotify/play.png";
+            } else {
+                document.getElementById('spotifyPlay').src = "modules/spotify/pause.png";
+            }
+        }
+    }
+    getSpotify();
+
+    function spotifyAction(action) {
+        if (action === "playpause") {
+            if (spotify.state === "playing") {
+                spotify.state = "paused";
+            } else {
+                spotify.state = "playing";
+            }
+        } else if (action === "next") {
+
+        } else if (action === "prev") {
+
+        }
+        getSpotify();
+    }
 </script>

@@ -11,13 +11,13 @@ async function getData(url) {
                 if (response.status !== 200) {
                     console.log('There was a problem. Status Code: ' +
                         response.status);
-                    return;
+                    return "err";
                 }
                 return response.json();
             }
         )
         .catch(function (err) {
-            console.log('Fetch Error :-S', err);
+            console.log('Fetch Error', err);
         });
     return data;
 }

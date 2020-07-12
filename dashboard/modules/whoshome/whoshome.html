@@ -1,0 +1,85 @@
+<!--
+####################################
+        whoshome module
+####################################
+ -->
+
+<!-- additional config files -->
+
+<!-- module scecific styles -->
+<style rel="stylesheet">
+    #whoshome_module img {
+        display: inline;
+        margin: 0 auto;
+        height: 100%;
+        width: auto;
+    }
+
+    #whoshome_module ul {
+        list-style-type: none;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    #whoshome_module li {
+        display: inline-block;
+        text-align: center;
+    }
+
+    #whoshome_module li:not(last-child) {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .image-cropper {
+        width: 70px;
+        height: 70px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+
+    .whoshome_name {
+        font-weight: 500;
+        display: block;
+        position: relative;
+        margin-top: 10px;
+    }
+</style>
+
+<!--
+############   MODULE BODY   ############
+ -->
+
+<div class="module_wrapper" id="whoshome_module">
+    <p class="module_name lightblue">Who's home</p>
+    <div class="module_content">
+        <div class="module_group">
+            <ul id="whoshome_ul">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- module specific scripts -->
+<script type="text/javascript">
+async function getWhoshome() {
+    people = await getData("http://127.0.0.1:5500/server/people.json");
+    people.people.forEach(element => {
+        let ul = document.getElementById('whoshome_ul');
+        let li = document.createElement('li');
+        let div = document.createElement('div');
+        div.className = "image-cropper";
+        let img = document.createElement('img');
+        img.src = "modules/whoshome/"+element.name.toLowerCase()+".png";
+        div.appendChild(img);
+        li.appendChild(div);
+        let span = document.createElement('span');
+        span.innerHTML = element.name;
+        span.className = "whoshome_name";
+        li.appendChild(span);
+        ul.appendChild(li);
+    });
+}
+getWhoshome();
+</script>
