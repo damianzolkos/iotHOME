@@ -1,17 +1,16 @@
+// iotHOME
+// esp32
+// ESP32 Dev Module
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <IRremote.h>
 #include <HTTPClient.h>
 
-// not important config (not used anymore anywhere)
-const char* nazwa = "iotHOME_esp";
-const char* wersja = "0.6.9";
-
 // wifi config
 const char* ssid = "PanRouter";
 const char* password = "odjedendoosiem";
 
-int input_pin = 23; // wpisujemy nazwę pinu, po którym nastepuje komunikacja
+int input_pin = 23;
 IRrecv irrecv(input_pin);
 decode_results signals;
 
@@ -43,20 +42,21 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 void mqttAssign() {
-  topic[0] = "home/outlets/outlet1";
+  topic[0] = "home/outlets/outlet1"; // wzmacniacz
   pin[0] = 18;
   state[0] = LOW;
-  topic[1] = "home/outlets/outlet2";
+  topic[1] = "home/outlets/outlet2"; // lampka
   pin[1] = 19;
   state[1] = LOW;
-  topic[2] = "home/outlets/outlet3";
+  topic[2] = "home/outlets/outlet3"; // nic xd
   pin[2] = 21;
   state[2] = LOW;
+  topic[3] = "home/wzmacniacz/state"; // feedback wzmacniacza
   pin[3] = 27;
   state[3] = LOW;
+  topic[4] = "home/outlets/outlet4"; // testowy przekaźnik
   pin[4] = 13;
   state[4] = LOW;
-  topic[4] = "home/outlets/outlet4";
 }
 
 void mqttSubscribe() {
@@ -74,21 +74,14 @@ void mqttAction(char* topic_received, char* payload) {
 
     if (topic[i] == String(topic_received)) {
       if ((char)payload[0] == '1') {
-        if (alarm_occured) {
-          client.publish("home/alarms/again", "1");
-        } else {
           digitalWrite(pin[i], HIGH);
           state[i] = HIGH;
-        }
       }
       else if ((char)payload[0] == '0') {
-        if (!alarm_occured) {
           digitalWrite(pin[i], LOW);
           state[i] = LOW;
-        }
       }
       else if ((char)payload[0] == 't') {
-
         if (state[i] == LOW) {
           digitalWrite(pin[i], HIGH);
           state[i] = HIGH;
@@ -96,7 +89,6 @@ void mqttAction(char* topic_received, char* payload) {
           digitalWrite(pin[i], LOW);
           state[i] = LOW;
         }
-
       }
     }
 
@@ -122,9 +114,7 @@ void reconnect() {
     String clientId = nazwa;
     if (client.connect(clientId.c_str())) {
       Serial.println("Connected!");
-
       mqttSubscribe();
-
     } else {
       delay(5000);
     }
@@ -149,8 +139,7 @@ void setup() {
   }
   Serial.println(WiFi.localIP());
 
-  irrecv.enableIRIn(); // włączenie odbierania danych
-
+  irrecv.enableIRIn();
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
   lastMillis = millis();
@@ -162,124 +151,35 @@ void loop() {
   }
   client.loop();
 
-
   if (millis() > lastMillis + delayTime) {
     if (digitalRead(pin[3]) == LOW) {
-      client.publish("home/wzmacniacz/state", "1");
-    } else client.publish("home/wzmacniacz/state", "0");
+      client.publish(topic[3], "1");
+    } else client.publish(topic[3], "0");
     lastMillis = millis();
   }
 
-
   if (irrecv.decode(&signals)) {
-    irrecv.blink13(true); // mrugamy diodami w arduino
-
-    if (signals.value == 0xFFA25D)
-    {
-      //      Serial.println("CH-");
-      client.publish("home/remotes/main", "CH-");
-    }
-    if (signals.value == 0xFF629D)
-    {
-      //      Serial.println("CH");
-      client.publish("home/remotes/main", "CH");
-    }
-    if (signals.value == 0xFFE21D)
-    {
-      //      Serial.println("CH+");
-      client.publish("home/remotes/main", "CH+");
-    }
-    if (signals.value == 0xFF22DD)
-    {
-      //      Serial.println("prev");
-      client.publish("home/remotes/main", "prev");
-    }
-    if (signals.value == 0xFF02FD)
-    {
-      //      Serial.println("next");
-      client.publish("home/remotes/main", "next");
-    }
-    if (signals.value == 0xFFC23D)
-    {
-      //      Serial.println("playpause");
-      client.publish("home/remotes/main", "playpause");
-    }
-    if (signals.value == 0xFFE01F)
-    {
-      //      Serial.println("-");
-      client.publish("home/remotes/main", "-");
-    }
-    if (signals.value == 0xFFA857)
-    {
-      //      Serial.println("+");
-      client.publish("home/remotes/main", "+");
-    }
-    if (signals.value == 0xFF906F)
-    {
-      //      Serial.println("EQ");
-      client.publish("home/remotes/main", "EQ");
-    }
-    if (signals.value == 0xFF6897)
-    {
-      //      Serial.println("0");
-      client.publish("home/remotes/main", "0");
-    }
-    if (signals.value == 0xFF9867)
-    {
-      //      Serial.println("100+");
-      client.publish("home/remotes/main", "100+");
-    }
-    if (signals.value == 0xFFB04F)
-    {
-      //      Serial.println("200+");
-      client.publish("home/remotes/main", "200+");
-    }
-    if (signals.value == 0xFF30CF)
-    {
-      //      Serial.println("1");
-      client.publish("home/remotes/main", "1");
-    }
-    if (signals.value == 0xFF18E7)
-    {
-      //      Serial.println("2");
-      client.publish("home/remotes/main", "2");
-    }
-    if (signals.value == 0xFF7A85)
-    {
-      //      Serial.println("3");
-      client.publish("home/remotes/main", "3");
-    }
-    if (signals.value == 0xFF10EF)
-    {
-      //      Serial.println("4");
-      client.publish("home/remotes/main", "4");
-    }
-    if (signals.value == 0xFF38C7)
-    {
-      //      Serial.println("5");
-      client.publish("home/remotes/main", "5");
-    }
-    if (signals.value == 0xFF5AA5)
-    {
-      //      Serial.println("6");
-      client.publish("home/remotes/main", "6");
-    }
-    if (signals.value == 0xFF42BD)
-    {
-      //      Serial.println("7");
-      client.publish("home/remotes/main", "7");
-    }
-    if (signals.value == 0xFF4AB5)
-    {
-      //      Serial.println("8");
-      client.publish("home/remotes/main", "8");
-    }
-    if (signals.value == 0xFF52AD)
-    {
-      //      Serial.println("9");
-      client.publish("home/remotes/main", "9");
-    }
-
-    irrecv.resume(); // nasłuchujemy na następne nadanie
+    if (signals.value == 0xFFA25D) client.publish("home/remotes/main", "CH-");
+    if (signals.value == 0xFF629D) client.publish("home/remotes/main", "CH");
+    if (signals.value == 0xFFE21D) client.publish("home/remotes/main", "CH+");
+    if (signals.value == 0xFF22DD) client.publish("home/remotes/main", "prev");
+    if (signals.value == 0xFF02FD) client.publish("home/remotes/main", "next");
+    if (signals.value == 0xFFC23D) client.publish("home/remotes/main", "playpause");
+    if (signals.value == 0xFFE01F) client.publish("home/remotes/main", "-");
+    if (signals.value == 0xFFA857) client.publish("home/remotes/main", "+");
+    if (signals.value == 0xFF906F) client.publish("home/remotes/main", "EQ");
+    if (signals.value == 0xFF6897) client.publish("home/remotes/main", "0");
+    if (signals.value == 0xFF9867) client.publish("home/remotes/main", "100+");
+    if (signals.value == 0xFFB04F) client.publish("home/remotes/main", "200+");
+    if (signals.value == 0xFF30CF) client.publish("home/remotes/main", "1");
+    if (signals.value == 0xFF18E7) client.publish("home/remotes/main", "2");
+    if (signals.value == 0xFF7A85) client.publish("home/remotes/main", "3");
+    if (signals.value == 0xFF10EF) client.publish("home/remotes/main", "4");
+    if (signals.value == 0xFF38C7) client.publish("home/remotes/main", "5");
+    if (signals.value == 0xFF5AA5) client.publish("home/remotes/main", "6");
+    if (signals.value == 0xFF42BD) client.publish("home/remotes/main", "7");
+    if (signals.value == 0xFF4AB5) client.publish("home/remotes/main", "8");
+    if (signals.value == 0xFF52AD) client.publish("home/remotes/main", "9");
+    irrecv.resume();
   }
 }
