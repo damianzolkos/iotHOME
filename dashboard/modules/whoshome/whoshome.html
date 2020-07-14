@@ -85,7 +85,7 @@
                 let div = document.createElement('div');
                 div.className = "image-cropper";
                 let img = document.createElement('img');
-                img.src = "modules/whoshome/" + element.name.toLowerCase() + ".png";
+                img.src = "modules/whoshome/" + element.icon;
                 div.appendChild(img);
                 li.appendChild(div);
                 let span = document.createElement('span');
@@ -96,24 +96,6 @@
 
             } else console.log("not so much");
         });
-
-        // if (whoshome == "404") {} else {
-        //     people.peple.forEach(element => {
-        //         let ul = document.getElementById('whoshome_ul');
-        //         let li = document.createElement('li');
-        //         let div = document.createElement('div');
-        //         div.className = "image-cropper";
-        //         let img = document.createElement('img');
-        //         img.src = "modules/whoshome/" + element.name.toLowerCase() + ".png";
-        //         div.appendChild(img);
-        //         li.appendChild(div);
-        //         let span = document.createElement('span');
-        //         span.innerHTML = element.name;
-        //         span.className = "whoshome_name";
-        //         li.appendChild(span);
-        //         ul.appendChild(li);
-        //     });
-        // }
     }
     getWhoshome();
 </script>
