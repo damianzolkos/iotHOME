@@ -110,7 +110,7 @@ function getTime() {
         minutes = "0" + minutes;
     }
     if (hour < 10) {
-        hour = "0" + hour; 
+        hour = "0" + hour;
     }
 
     h = hour.toString();

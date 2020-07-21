@@ -7,15 +7,17 @@
 #include <HTTPClient.h>
 
 // wifi config
-const char* ssid = "PanRouter";
-const char* password = "odjedendoosiem";
+const char* ssid = "multimedia_dominikanska8";
+const char* password = "dominikanskawynajem";
+
+const char* nazwa = "iotHOME_esp32";
 
 int input_pin = 23;
 IRrecv irrecv(input_pin);
 decode_results signals;
 
 // mqtt config
-const char* mqtt_server = "192.168.1.11";
+const char* mqtt_server = "192.168.0.11";
 const int mqtt_port = 1883;
 
 long lastMsg = 0;
@@ -26,6 +28,7 @@ String topic[5];
 String topic_status[5];
 int pin[5];
 boolean state[5];
+boolean lastState = 0;
 int howManyPins = 3;
 
 int sensor = 0;
@@ -151,12 +154,23 @@ void loop() {
   }
   client.loop();
 
-  if (millis() > lastMillis + delayTime) {
-    if (digitalRead(pin[3]) == LOW) {
-      client.publish(topic[3], "1");
-    } else client.publish(topic[3], "0");
-    lastMillis = millis();
-  }
+  // if (lastState != digitalRead(pin[3])) {
+  //   if (digitalRead(pin[3]) == LOW) {
+  //     client.publish("home/wzmacniacz/state", "1");
+  //   } else {
+  //     client.publish("home/wzmacniacz/state", "0");
+  //   }
+  //   lastState = digitalRead(pin[3]);
+  // }
+  
+//  if (millis() > lastMillis + delayTime) {
+//    if (digitalRead(pin[3]) == LOW) {
+//      client.publish("home/wzmacniacz/state", "1");
+//    } else {
+//      client.publish("home/wzmacniacz/state", "0");
+//    }
+//    lastMillis = millis();
+//  }
 
   if (irrecv.decode(&signals)) {
     if (signals.value == 0xFFA25D) client.publish("home/remotes/main", "CH-");

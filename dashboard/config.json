@@ -2,16 +2,30 @@
   "appName": "Home",
   "appAuthor": "Damian Żółkoś",
   "appAuthorLink": "http://github.com/damianzolkos",
-  "serverAddress": "http://192.168.1.11",
+  "serverAddress": "http://192.168.0.11",
+  "wsServerAddress": "ws://192.168.0.11",
   "pages": [{
     "name": "Homepage",
     "type": "column"
+  },
+  {
+    "name": "MPK",
+    "type": "big"
+  },
+  {
+    "name": "System",
+    "type": "big"
   }],
   "activeModules": [
     ["buttons", "Homepage"],
     ["volume", "Homepage"],
     ["spotify", "Homepage"],
     ["whoshome", "Homepage"],
+    ["mpk1", "MPK"],
+    ["mpk2", "MPK"],
+    ["mpk3", "MPK"],
+    ["websockets", "System"],
+    ["modules", "System"],
     ["links", "Homepage"]
   ]
 }

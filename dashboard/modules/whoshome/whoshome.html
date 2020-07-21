@@ -65,6 +65,7 @@
 <script type="text/javascript">
     var peopleURL = config.serverAddress + ":1880/people";
     var whoshomeURL = config.serverAddress + ":1880/whoshome";
+    var isanybodyhere = 0;
     async function getWhoshome() {
         let people = await getData(peopleURL);
         console.log(people);
@@ -79,7 +80,7 @@
             console.log(element.mac);
             if (whoshomeArray.includes(element.mac)) {
                 console.log("mr president, we got him");
-                
+                isanybodyhere++;
                 let ul = document.getElementById('whoshome_ul');
                 let li = document.createElement('li');
                 let div = document.createElement('div');
@@ -96,6 +97,10 @@
 
             } else console.log("not so much");
         });
+        if (isanybodyhere == 0) {
+                let ul = document.getElementById('whoshome_ul');
+                ul.innerHTML = "Nobody's home"
+        }
     }
     getWhoshome();
 </script>

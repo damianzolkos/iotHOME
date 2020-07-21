@@ -57,6 +57,20 @@
     }
   }
 
+  var websockets = new WebSocket(config.wsServerAddress + ":1880/ws");
+  websockets.onopen = function (e) {};
+
+  websockets.onmessage = function (event) {
+    let receivedJSON = JSON.parse(event.data);
+    if (receivedJSON.category === "outlets") {
+      if (receivedJSON.message == 1) {
+        document.getElementById(receivedJSON.category + '.' + receivedJSON.device).className = "button on";
+      } else if (receivedJSON.message == 0) {
+        document.getElementById(receivedJSON.category + '.' + receivedJSON.device).className = "button off";
+      } else newNotification(receivedJSON.message);
+    }
+  };
+
   async function sendSwitch(category, device) {
     let deviceAction = {
       "category": category,
@@ -64,29 +78,11 @@
       "action": 1
     };
 
-    console.log(deviceAction);
-
-    let url = config.serverAddress + ":1880/action";
-
     if (document.getElementById(category + '.' + device).className == "button off") {
       deviceAction.action = 1;
     } else deviceAction.action = 0;
 
     let actionJSON = JSON.stringify(deviceAction);
-
-    await fetch(url, {
-      method: 'post',
-      body: actionJSON
-    }).then(function (response) {
-      return response.json();
-    }).then(function (receivedJSON) {
-
-      if (receivedJSON.message === 1) {
-        document.getElementById(receivedJSON.category + '.' + receivedJSON.device).className = "button on";
-      } else if (receivedJSON.message === 0) {
-        document.getElementById(receivedJSON.category + '.' + receivedJSON.device).className = "button off";
-      } else newNotification(receivedJSON.message);
-
-    });
+    websockets.send(actionJSON);
   }
 </script>

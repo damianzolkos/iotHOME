@@ -34,30 +34,21 @@
     return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   }
 
-  async function getVolume() {
+  var websocketsVolume = new WebSocket(config.wsServerAddress + ":1880/ws/volume");
+  websocketsVolume.onopen = function (e) {
     let deviceAction = {
       "category": "system",
       "device": "volumeGet",
       "action": 1
     };
-
-    let url = config.serverAddress + ":1880/action";
-
     let actionJSON = JSON.stringify(deviceAction);
+    websocketsVolume.send(actionJSON);
+  };
 
-    await fetch(url, {
-      method: 'post',
-      body: actionJSON
-    }).then(function (response) {
-      return response.json();
-    }).then(function (receivedJSON) {
-
-      console.log(receivedJSON.message);
-      document.getElementById("volumeRange").value = parseInt(receivedJSON.message);
-
-    });
-  }
-  getVolume();
+  websocketsVolume.onmessage = function (event) {
+    let receivedJSON = JSON.parse(event.data);
+    document.getElementById("volumeRange").value = parseInt(receivedJSON.message);
+  };
 
   async function sendVolume(volume) {
     let deviceAction = {
@@ -65,20 +56,8 @@
       "device": "volume",
       "action": 1
     };
-
-    let url = config.serverAddress + ":1880/action";
-
-    // deviceAction.action = parseInt(scale(volume, 0, 100, 0, 30));
     deviceAction.action = parseInt(volume);
-
     let actionJSON = JSON.stringify(deviceAction);
-
-    await fetch(url, {
-      method: 'post',
-      body: actionJSON
-    }).then(function (response) {
-      return response.json();
-    }).then(function (receivedJSON) {
-    });
+    websocketsVolume.send(actionJSON);
   }
 </script>

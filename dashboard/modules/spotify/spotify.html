@@ -43,8 +43,6 @@
         height: auto;
         cursor: pointer;
         padding: 5px;
-        /* border: 1px solid rgba(17, 17, 17, 0.15); */
-        /* border-radius: 10px; */
     }
     .spotifyControls img:hover {
         background-color: rgba(17, 17, 17, 0.1);
@@ -75,8 +73,8 @@
 <!-- module specific scripts -->
 <script type="text/javascript">
     var spotify;
-    // var spotifyURL = config.serverAddress+"/spotify.json";
-    var spotifyURL = "../server/spotify.json";
+    var spotifyURL = config.serverAddress+":1880/music";
+    // var spotifyURL = "../server/spotify.json";
     async function getSpotify() {
         spotify = await getData(spotifyURL);
         if (spotify === "err") {
@@ -93,18 +91,21 @@
         }
     }
     getSpotify();
-
+    
+    // TU TRZEBA WEBSOCETSY DAĆ EJ 
     function spotifyAction(action) {
         if (action === "playpause") {
             if (spotify.state === "playing") {
                 spotify.state = "paused";
+                getData(config.serverAddress+":1880/pause");
             } else {
                 spotify.state = "playing";
+                getData(config.serverAddress+":1880/play");
             }
         } else if (action === "next") {
-
+            getData(config.serverAddress+":1880/next");
         } else if (action === "prev") {
-
+            getData(config.serverAddress+":1880/prev");
         }
         getSpotify();
     }
