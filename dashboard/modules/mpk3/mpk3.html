@@ -83,5 +83,6 @@
     }
     document.getElementById(pageId).innerHTML = txt;
   }
-  window.setInterval(parseData(108, "busLines3"), 10000);
+  parseData(108, "busLines3");
+  window.setInterval(parseData, 10000, 108, "busLines3");
 </script>
