@@ -24,7 +24,7 @@ async function getData(url) {
 }
 
 async function getXMLData(url) {
-    const data = await fetch('https://cors-anywhere.herokuapp.com/'+url, {
+    const data = await fetch('https://infinite-springs-66524.herokuapp.com/'+url, {
         method: 'GET',
         url: url
       })
