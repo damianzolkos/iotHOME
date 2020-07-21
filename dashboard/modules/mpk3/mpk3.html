@@ -59,24 +59,6 @@
 </div>
 
 <script>
-  async function getXMLData(url) {
-    const data = await fetch(url)
-      .then(
-        function (response) {
-          if (response.status !== 200) {
-            console.log('There was a problem. Status Code: ' +
-              response.status);
-            return response.status;
-          }
-          return response.text();
-        }
-      )
-      .catch(function (err) {
-        console.log('Fetch Error ', err);
-      });
-    return data;
-  }
-
   async function parseData(busStopId, pageId) {
     let parser = new DOMParser();
     let data = await getXMLData("http://einfo.erzeszow.pl/Home/GetTimeTableReal?busStopId=" + busStopId);

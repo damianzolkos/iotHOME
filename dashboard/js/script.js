@@ -23,6 +23,26 @@ async function getData(url) {
     return data;
 }
 
+async function getXMLData(url) {
+    const data = await fetch('https://cors-anywhere.herokuapp.com/'+url, {
+        method: 'GET',
+        url: url
+      })
+      .then(
+        function (response) {
+          if (response.status !== 200) {
+            console.log('There was a problem. Status Code: ' + response.status);
+            return response.status;
+          }
+          return response.text();
+        }
+      )
+      .catch(function (err) {
+        console.log('Fetch Error ', err);
+      });
+    return data;
+  }
+
 var mq = window.matchMedia("(max-width: 500px)");
 
 var metaThemeColor = document.querySelector("meta[name=theme-color]");
