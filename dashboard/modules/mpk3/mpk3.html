@@ -1,23 +1,105 @@
-<!--
-####################################
-        MPK module
-####################################
- -->
+<style>
+  h4 {
+    text-align: center;
+  }
 
-<!-- additional config files -->
+  .busStopName {
+    font-size: 18pt;
+    text-align: center;
+    padding: 10px;
+    margin: 0px 0px 10px 0px;
+    background-color: aqua;
+  }
 
-<!-- module scecific styles -->
-<style rel="stylesheet">
+  .container {
+    font-size: 14pt;
+    display: grid;
+    grid-template-columns: 50px auto 20px 90px;
+    column-gap: 0px;
+    row-gap: 0px;
+  }
 
+  .busNr {
+    font-weight: 500;
+    grid-column: 1;
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  .busDir {
+    grid-column: 2;
+  }
+
+  .busVeh {
+    font-weight: 100;
+    grid-column: 3;
+    text-align: right;
+  }
+
+  .busTime {
+    grid-column: 4;
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  .border {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 1px solid rgba(153, 153, 153, 0.25);
+  }
 </style>
 
-<!--
-############   MODULE BODY   ############
- -->
 
 <div class="module_wrapper">
-  <p class="module_name green">Powstańców Warszawy Politechnika</p>
+  <p class="module_name green">Powst. Warszawy Politechnika 02</p>
   <div class="module_content">
-    <iframe scrolling='no' style="height: 900px; width: 100%; border: 0;" src="http://einfo.erzeszow.pl/Home/TimeTableReal?busStopId=108"></iframe>
+    <div class="container" id="busLines3">
+    </div>
   </div>
 </div>
+
+<script>
+  async function getXMLData(url) {
+    const data = await fetch(url)
+      .then(
+        function (response) {
+          if (response.status !== 200) {
+            console.log('There was a problem. Status Code: ' +
+              response.status);
+            return response.status;
+          }
+          return response.text();
+        }
+      )
+      .catch(function (err) {
+        console.log('Fetch Error ', err);
+      });
+    return data;
+  }
+
+  async function parseData(busStopId, pageId) {
+    let parser = new DOMParser();
+    let data = await getXMLData("http://einfo.erzeszow.pl/Home/GetTimeTableReal?busStopId=" + busStopId);
+    let parsedXML = parser.parseFromString(data, 'application/xml');
+    let schedules = parsedXML.getElementsByTagName("Schedules")[0];
+    let stop = schedules.getElementsByTagName("Stop")[0];
+    let busStopName = stop.getAttribute("name");
+    let day = stop.getElementsByTagName("Day")[0];
+    let howManyBusses = stop.getElementsByTagName("R").length;
+
+    let txt = "";
+    for (i = 0; i < howManyBusses; i++) {
+      let nr = stop.getElementsByTagName("R")[i].getAttribute("nr");
+      let dir = stop.getElementsByTagName("R")[i].getAttribute("dir");
+      let t = stop.getElementsByTagName("R")[i].getElementsByTagName("S")[0].getAttribute("t");
+      let veh = stop.getElementsByTagName("R")[i].getElementsByTagName("S")[0].getAttribute("veh");
+
+      txt += "<span class='busNr border'>" + nr + "</span>" +
+        "<span class='busDir border'>" + dir + "</span>" +
+        "<span class='busVeh border'>" + veh + "</span>" +
+        "<span class='busTime border'>" + t + "</span>";
+    }
+    document.getElementById(pageId).innerHTML = txt;
+  }
+  window.setInterval(parseData(108, "busLines3"), 10000);
+</script>
