@@ -2,6 +2,7 @@
     "groups": ["Bedroom"],
     "buttons": [
         ["Bedroom","Amplifier","outlets","outlet1"],
-        ["Bedroom","Light","outlets","outlet2"]
+        ["Bedroom","Light","outlets","outlet2"],
+        ["Bedroom","Power strip","outlets","outlet3"]
     ]
 }

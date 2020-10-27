@@ -48,10 +48,10 @@ void mqttAssign() {
   topic[0] = "home/outlets/outlet1"; // wzmacniacz
   pin[0] = 18;
   state[0] = LOW;
-  topic[1] = "home/outlets/outlet2"; // lampka
+  topic[1] = "home/outlets/outlet2"; // lampki
   pin[1] = 19;
   state[1] = LOW;
-  topic[2] = "home/outlets/outlet3"; // nic xd
+  topic[2] = "home/outlets/outlet3"; // przedłużacz pod biurkiem
   pin[2] = 21;
   state[2] = LOW;
   topic[3] = "home/wzmacniacz/state"; // feedback wzmacniacza
@@ -77,12 +77,12 @@ void mqttAction(char* topic_received, char* payload) {
 
     if (topic[i] == String(topic_received)) {
       if ((char)payload[0] == '1') {
-          digitalWrite(pin[i], HIGH);
-          state[i] = HIGH;
+        digitalWrite(pin[i], HIGH);
+        state[i] = HIGH;
       }
       else if ((char)payload[0] == '0') {
-          digitalWrite(pin[i], LOW);
-          state[i] = LOW;
+        digitalWrite(pin[i], LOW);
+        state[i] = LOW;
       }
       else if ((char)payload[0] == 't') {
         if (state[i] == LOW) {
@@ -93,8 +93,19 @@ void mqttAction(char* topic_received, char* payload) {
           state[i] = LOW;
         }
       }
+      char* state_buf = "0";
+      if (state[i]) state_buf = "1";
+      
+      if (String(topic_received) == "home/outlets/outlet1") {
+        client.publish("home/outlets/outlet1/state", state_buf);
+      }
+      if (String(topic_received) == "home/outlets/outlet2") {
+        client.publish("home/outlets/outlet2/state", state_buf);
+      }
+      if (String(topic_received) == "home/outlets/outlet3") {
+        client.publish("home/outlets/outlet3/state", state_buf);
+      }
     }
-
   }
 }
 
@@ -153,24 +164,6 @@ void loop() {
     reconnect();
   }
   client.loop();
-
-  // if (lastState != digitalRead(pin[3])) {
-  //   if (digitalRead(pin[3]) == LOW) {
-  //     client.publish("home/wzmacniacz/state", "1");
-  //   } else {
-  //     client.publish("home/wzmacniacz/state", "0");
-  //   }
-  //   lastState = digitalRead(pin[3]);
-  // }
-  
-//  if (millis() > lastMillis + delayTime) {
-//    if (digitalRead(pin[3]) == LOW) {
-//      client.publish("home/wzmacniacz/state", "1");
-//    } else {
-//      client.publish("home/wzmacniacz/state", "0");
-//    }
-//    lastMillis = millis();
-//  }
 
   if (irrecv.decode(&signals)) {
     if (signals.value == 0xFFA25D) client.publish("home/remotes/main", "CH-");
