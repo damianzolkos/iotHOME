@@ -14,12 +14,23 @@
 
 <!-- module specific scripts -->
 <script type="text/javascript">
-    temperatureReading("cputemp", 57);
-    temperatureReading("gputemp", 78);
+    async function getRpiTemp() {
+        let temp = await getData("http://192.168.0.11:1880/temp/rpi");
+        console.log(temp)
+        temperatureReading("cputemp", temp.temperature);
+    }
+    async function getDHTTemp() {
+        let temp = await getData("http://192.168.0.11:1880/temp/dht");
+        console.log(temp)
+        temperatureReading("dhttemp", temp.temperature);
+    }
+    getRpiTemp();
+    getDHTTemp();
 
     function temperatureReading(id, temp) {
         document.getElementById(id).innerHTML = temp + "<span class='deg'>&deg;</span>C";
     }
+
 </script>
 
 <!--
@@ -28,11 +39,11 @@
 <div class="module_wrapper" id="temps">
     <p class="module_name blue">Temperatures</p>
     <div class="module_content">
-        <p class="module_description">CPU</p>
+        <p class="module_description">Raspbery Pi</p>
         <div class="temperature" id="cputemp"></div>
     </div>
     <div class="module_content">
-        <p class="module_description">GPU</p>
-        <div class="temperature" id="gputemp"></div>
+        <p class="module_description">DHT11</p>
+        <div class="temperature" id="dhttemp"></div>
     </div>
 </div>
